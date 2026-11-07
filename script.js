@@ -1,79 +1,41 @@
 (() => {
-  const menuButton = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav');
-
-  // Mobile navigation
-  menuButton?.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-
-    menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.setAttribute(
-      'aria-label',
-      open ? 'Close navigation' : 'Open navigation'
-    );
+  menu?.addEventListener('click', () => {
+    const opened = nav.classList.toggle('open');
+    menu.setAttribute('aria-expanded', String(opened));
+    menu.setAttribute('aria-label', opened ? 'Close menu' : 'Open menu');
   });
+  nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menu?.setAttribute('aria-expanded', 'false');
+  }));
 
-  nav?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      menuButton?.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  // Scroll progress indicator
-  const progress = document.getElementById('progress');
-
-  const updateProgress = () => {
-    const max =
-      document.documentElement.scrollHeight - window.innerHeight;
-
-    if (progress) {
-      progress.style.width =
-        `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
-    }
+  const progress = document.getElementById('scrollProgress');
+  const backTop = document.getElementById('backTop');
+  const updateScrollUI = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    if (progress) progress.style.width = `${max > 0 ? scrollY / max * 100 : 0}%`;
+    backTop?.classList.toggle('show', scrollY > 600);
   };
+  addEventListener('scroll', updateScrollUI, {passive:true});
+  updateScrollUI();
+  backTop?.addEventListener('click', () => scrollTo({top:0, behavior:'smooth'}));
 
-  window.addEventListener('scroll', updateProgress, {
-    passive: true
-  });
-
-  updateProgress();
-
-  // Scroll reveal animations
-  const revealItems = document.querySelectorAll('.reveal');
-
-  if (
-    'IntersectionObserver' in window &&
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  ) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -35px 0px'
-    });
-
-    revealItems.forEach((item, index) => {
-      item.style.transitionDelay =
-        `${Math.min(index % 4, 3) * 80}ms`;
-
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    }), {threshold:.12, rootMargin:'0px 0px -35px 0px'});
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${(index % 3) * 90}ms`;
       observer.observe(item);
     });
-  } else {
-    revealItems.forEach(item => {
-      item.classList.add('visible');
-    });
-  }
+  } else items.forEach(item => item.classList.add('visible'));
 
-  // Automatic copyright year
   const year = document.getElementById('year');
-
-  if (year) {
-    year.textContent = new Date().getFullYear();
-  }
+  if (year) year.textContent = new Date().getFullYear();
 })();

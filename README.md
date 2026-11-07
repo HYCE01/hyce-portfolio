@@ -1,24 +1,16 @@
-# HYCE — Building Beyond the Numbers
+# HYCE — Personal Brand Website
 
-Official personal brand website for **Babatunde Ayomide Oladimeji (HYCE)**.
+A responsive personal website for Babatunde Ayomide Oladimeji.
 
-## Features
-- Responsive premium dark corporate design with restrained gold accents
-- Animated hero, scroll reveals, ambient motion and reading progress indicator
-- Mobile navigation
-- Reduced-motion accessibility support
-- No build tools or dependencies required
+## Files
+- `index.html` — page structure and content
+- `styles.css` — responsive hybrid premium design
+- `script.js` — mobile navigation, scroll progress, reveal animation and back-to-top interaction
+- `assets/hyce-professional.jpeg` — supplied professional portrait
+- `assets/hyce-personal.jpeg` — supplied personal photograph
 
-## Run locally
-Open `index.html` in any modern browser.
+## Publish on GitHub Pages
+Upload all files and the `assets` folder to the root of `HYCE01/hyce-portfolio` on `main`. Keep the existing Pages setting (`main` / root).
 
-## Publish with GitHub Pages
-1. Open this repository's **Settings → Pages**.
-2. Under **Build and deployment**, select **Deploy from a branch**.
-3. Select branch `main` and folder `/ (root)`, then Save.
-4. Wait for GitHub Pages to publish the site.
-
-The website will be available at `https://hyce01.github.io/hyce-portfolio/` once Pages is enabled.
-
-## Personalisation before launch
-The site currently uses public professional information supplied for the project. Add a public contact email or approved portrait only when ready. Do not publish private contact details.
+## Custom domain
+A custom domain has not yet been selected or registered. After choosing and purchasing one, add it under repository Settings → Pages → Custom domain, then configure the DNS records GitHub provides. Do not add a placeholder CNAME.
